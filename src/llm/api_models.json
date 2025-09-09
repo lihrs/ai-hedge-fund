@@ -5,6 +5,11 @@
     "provider": "xAI"
   },
   {
+    "display_name": "Qwen/Qwen3-8B",
+    "model_name": "Qwen/Qwen3-8B",
+    "provider": "SiliconFlow"
+  },
+  {
     "display_name": "GPT-5",
     "model_name": "gpt-5",
     "provider": "OpenAI"

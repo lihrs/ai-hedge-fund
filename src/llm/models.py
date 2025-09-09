@@ -21,6 +21,7 @@ class ModelProvider(str, Enum):
     ALIBABA = "Alibaba"
     ANTHROPIC = "Anthropic"
     DEEPSEEK = "DeepSeek"
+    SILICONFLOW = "SiliconFlow"
     GOOGLE = "Google"
     GROQ = "Groq"
     META = "Meta"
@@ -137,6 +138,15 @@ def get_model(model_name: str, model_provider: ModelProvider, api_keys: dict = N
             print(f"API Key Error: Please make sure GROQ_API_KEY is set in your .env file or provided via API keys.")
             raise ValueError("Groq API key not found.  Please make sure GROQ_API_KEY is set in your .env file or provided via API keys.")
         return ChatGroq(model=model_name, api_key=api_key)
+    elif model_provider == ModelProvider.SILICONFLOW:
+        # Get and validate API key
+        api_key = (api_keys or {}).get("SILICONFLOW_API_KEY") or os.getenv("SILICONFLOW_API_KEY")
+        base_url = os.getenv("SILICONFLOW_API_BASE")
+        if not api_key:
+            # Print error to console
+            print(f"API Key Error: Please make sure SILICONFLOW_API_KEY is set in your .env file or provided via API keys.")
+            raise ValueError("SiliconFlow API key not found.  Please make sure SILICONFLOW_API_KEY is set in your .env file or provided via API keys.")
+        return ChatOpenAI(model=model_name, api_key=api_key, base_url=base_url)
     elif model_provider == ModelProvider.OPENAI:
         # Get and validate API key
         api_key = (api_keys or {}).get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
